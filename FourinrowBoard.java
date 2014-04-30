@@ -90,5 +90,9 @@ public class FourinrowBoard extends Environment {
         
         /* TODO: Notificar posicion de las fichas */
     }
+    
+    public int getSize() {
+        return GSize;
+    }
 }
 

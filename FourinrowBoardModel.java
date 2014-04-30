@@ -14,6 +14,7 @@ public class FourinrowBoardModel extends GridWorldModel {
     }
 
     public void put(FourinrowChip f, int x) {
+        
         int p = getHeight();
 
         while (p >= 0 && !isFree(x, p)) {
@@ -24,7 +25,7 @@ public class FourinrowBoardModel extends GridWorldModel {
             logger.log(Level.SEVERE, "Se está intentando insertar una ficha en una columna completa");
         }
         else {
-            this.add(f.ordinal(), x, p);
+            this.add(f.getMask(), x, p);
 
             try {
                 Thread.sleep(500);
