@@ -117,10 +117,12 @@ public class FourinrowBoard extends Environment {
         
         /* Notificamos el turno */
         if (this.turn) {
-            addPercept(Literal.parseLiteral("turn(blue)"));
+            addPercept(JugadorPrimario, Literal.parseLiteral("turn(true)"));
+            addPercept(JugadorSecundario, Literal.parseLiteral("turn(false)"));
         }
         else {
-            addPercept(Literal.parseLiteral("turn(red)"));
+            addPercept(JugadorPrimario, Literal.parseLiteral("turn(false)"));
+            addPercept(JugadorSecundario, Literal.parseLiteral("turn(true)"));
         }
         
         /* Notificamos si el juego ha acabado */
