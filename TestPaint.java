@@ -31,26 +31,8 @@ public class TestPaint {
         
         m.put(FourinrowChip.RED, 3);
         
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(TestPaint.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        m.put(FourinrowChip.RED, 4);
-        
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(TestPaint.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        m.put(FourinrowChip.BLUE, 4);
         
         m.put(FourinrowChip.RED, 3);
-        
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(TestPaint.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 }
