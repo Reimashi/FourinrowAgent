@@ -1,5 +1,5 @@
 public enum FourinrowChip { 
-    RED(8), BLUE(16);
+    EMPTY(0), RED(8), BLUE(16);
  
     private final int value;
  
