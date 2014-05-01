@@ -12,24 +12,42 @@ public class FourinrowBoardView extends GridWorldView {
     private static final String window_title = "Conecta 4";
     private static final int window_width = 800;
     private static final int chip_margin = 3;
-    private static final int chip_border = 5;
+    private static final int chip_border = 12;
     
-    private final int wsize;
-    private final int hsize;
+    private int woffset;
+    private int hoffset;
+    private int wsize;
+    private int hsize;
+    private int wboxsize;
+    private int hboxsize;
+    private int wchipsize;
+    private int hchipsize;
 
     public FourinrowBoardView (FourinrowBoardModel model) {
         super(model, window_title, window_width);
 
         this.defaultFont = new Font("Arial", Font.BOLD, 18);
         
-        this.wsize = window_width / model.getWidth();
-        this.hsize = window_width / model.getHeight();
-                
         this.setEnabled(true);
         this.setVisible(true);
         this.repaint();
 
         logger.log(Level.INFO, "Se ha instanciado la clase: " + logger.getName());
+    }
+    
+    @Override
+    public void paint(Graphics g) {
+        /* Calculos de las medidas para el dibujado */
+        this.woffset = this.getX();
+        this.hoffset = this.getY();
+        this.wsize = this.getWidth() - this.woffset;
+        this.hsize = this.getHeight() - this.hoffset;
+        this.wboxsize = this.wsize / model.getWidth();
+        this.hboxsize = this.hsize / model.getHeight();
+        this.wchipsize = this.wboxsize - 2 * chip_margin;
+        this.hchipsize = this.hboxsize - 2 * chip_margin;
+        
+        super.paint(g);
     }
     
     @Override
@@ -73,21 +91,13 @@ public class FourinrowBoardView extends GridWorldView {
 
     public void drawFicha(Graphics g, int x, int y, Color col) {
         g.setColor(col.darker());
-        g.fillOval(this.wsize * x + chip_margin, 
-                this.hsize * y + chip_margin, 
-                this.wsize - (chip_margin * 2), 
-                this.hsize - (chip_margin * 2));
+        g.fillOval(wboxsize * x, hboxsize * y, wchipsize, hchipsize);
         
         g.setColor(col);
-        g.fillOval(this.wsize * x + chip_margin + chip_border, 
-                this.hsize * y + chip_margin + chip_border, 
-                this.wsize - (chip_margin * 2) - (chip_border * 2), 
-                this.hsize - (chip_margin * 2) - (chip_border * 2));
+        g.fillOval(wboxsize * x + chip_border, hboxsize * y + chip_border, wchipsize - 2 * chip_border, hchipsize - 2 * chip_border);
         
         g.setColor(Color.BLACK);
-        g.drawOval(this.wsize * x + chip_margin, 
-                this.hsize * y + chip_margin, 
-                this.wsize - (chip_margin * 2), 
-                this.hsize - (chip_margin * 2));
+        g.drawOval(wboxsize * x, hboxsize * y, wchipsize, hchipsize);
+        g.drawOval(wboxsize * x + chip_border, hboxsize * y + chip_border, wchipsize - 2 * chip_border, hchipsize - 2 * chip_border);
     }
 }
