@@ -33,6 +33,8 @@ public class TestPaint {
         
         m.put(FourinrowChip.BLUE, 4);
         
-        m.put(FourinrowChip.RED, 3);
+        m.put(FourinrowChip.BLUE, 3);
+        
+        m.put(FourinrowChip.RED, 4);
     }
 }
