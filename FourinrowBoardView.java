@@ -3,6 +3,8 @@ import jason.environment.grid.GridWorldView;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -34,6 +36,13 @@ public class FourinrowBoardView extends GridWorldView {
         this.repaint();
 
         logger.log(Level.INFO, "Se ha instanciado la clase: " + logger.getName());
+        
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                System.exit(0);
+            }
+        });
     }
     
     @Override
