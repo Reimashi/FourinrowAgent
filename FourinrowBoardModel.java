@@ -5,6 +5,10 @@ import java.util.logging.Logger;
 
 
 public class FourinrowBoardModel extends GridWorldModel {
+    /* Tiempo de espera entre jugadas */
+    private static final long turnTime = 1200;
+    
+    /* Variables internas de la clase */
     private static final Logger logger = Logger.getLogger("conecta4.mas2j." + FourinrowBoardModel.class.getName());
 
     public FourinrowBoardModel(int xgsize, int ygsize, int numagents) {
@@ -14,23 +18,26 @@ public class FourinrowBoardModel extends GridWorldModel {
     }
 
     public void put(FourinrowChip f, int x) {
+        int ycoord = -1;
         
-        int p = getHeight();
-
-        while (p >= 0 && !isFree(x, p)) {
-            p--;
+        for (int colindex = this.getHeight() - 1; colindex >= 0; colindex--) {
+            if (this.data[x][colindex] == 0) {
+                ycoord = colindex;
+                break;
+            }
         }
-
-        if (p < 0){
-            logger.log(Level.SEVERE, "Se está intentando insertar una ficha en una columna completa");
+        
+        if (ycoord != -1) {
+            this.set(f.getMask(), x, ycoord);
+            
+            /* Se espera un tiempo para poder ver las jugadas */
+            try {
+                Thread.sleep(FourinrowBoardModel.turnTime);
+            }
+            catch (InterruptedException e) {}
         }
         else {
-            this.add(f.getMask(), x, p);
-
-            try {
-                Thread.sleep(500);
-            }
-            catch (InterruptedException e) { }
+            logger.log(Level.SEVERE, "Se está intentando insertar una ficha en una columna completa <" + x + ">");
         }
     }
 }
