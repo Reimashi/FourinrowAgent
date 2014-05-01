@@ -28,6 +28,7 @@ public class FourinrowBoardView extends GridWorldView {
 
         this.defaultFont = new Font("Arial", Font.BOLD, 18);
         
+        this.setResizable(false);
         this.setEnabled(true);
         this.setVisible(true);
         this.repaint();
