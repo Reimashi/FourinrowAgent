@@ -10,9 +10,6 @@ public class FourinrowBoard extends Environment {
     /* Tamaño del tablero */
     private static final int gSize = 8;
     
-    /* Tiempo de espera entre jugadas */
-    private static final long turnTime = 2000;
-    
     /* Nombres de los agentes */
     private static final String JugadorPrimario = "jugadorPrimario";
     private static final String JugadorSecundario = "jugadorSecundario";
@@ -84,12 +81,6 @@ public class FourinrowBoard extends Environment {
         this.turn = !this.turn;
         
         this.updatePercepts();
-            
-        /* Se espera un tiempo para evitar errores inesperados */
-        try {
-            Thread.sleep(FourinrowBoard.turnTime);
-        }
-        catch (InterruptedException e) {}
         
         /* TODO: Comprobar si el juego ha finalizado */
         
