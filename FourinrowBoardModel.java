@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 
 public class FourinrowBoardModel extends GridWorldModel {
     /* Tiempo de espera entre jugadas */
-    private static final long turnTime = 1200;
+    private static final long turnTime = 200;
     
     /* Variables internas de la clase */
     private static final Logger logger = Logger.getLogger("conecta4.mas2j." + FourinrowBoardModel.class.getName());
@@ -39,5 +39,80 @@ public class FourinrowBoardModel extends GridWorldModel {
         else {
             logger.log(Level.SEVERE, "Se está intentando insertar una ficha en una columna completa <" + x + ">");
         }
+        
+        System.out.println(getWinner());  // QUITAR
+    }
+    
+    public FourinrowChip getWinner() {
+        /* Comprobamos diagonales descendientes */
+        for (int i = 0; i < this.getWidth() - 3; i++) {
+            for (int j = 3; j < this.getHeight(); j++) {
+                if (this.data[i][j] != FourinrowChip.EMPTY.getMask() && 
+                        this.data[i][j] == this.data[i+1][j-1] &&
+                        this.data[i][j] == this.data[i+2][j-2] &&
+                        this.data[i][j] == this.data[i+3][j-3]) {
+                    if (this.data[i][j] == FourinrowChip.RED.getMask()) {
+                        return FourinrowChip.RED;
+                    }
+                    else if (this.data[i][j] == FourinrowChip.BLUE.getMask()) {
+                        return FourinrowChip.BLUE;
+                    }
+                }
+            }
+        }
+        
+        /* Comprobamos lineas horizontales */
+        for (int i = 0; i < this.getWidth(); i++) {
+            for (int j = 3; j < this.getHeight(); j++) {
+                if (this.data[i][j] != FourinrowChip.EMPTY.getMask() && 
+                        this.data[i][j] == this.data[i][j-1] &&
+                        this.data[i][j] == this.data[i][j-2] &&
+                        this.data[i][j] == this.data[i][j-3]) {
+                    if (this.data[i][j] == FourinrowChip.RED.getMask()) {
+                        return FourinrowChip.RED;
+                    }
+                    else if (this.data[i][j] == FourinrowChip.BLUE.getMask()) {
+                        return FourinrowChip.BLUE;
+                    }
+                }
+            }
+        }
+        
+        /* Comprobamos diagonales ascendientes */
+        for (int i = 0; i < this.getWidth() - 3; i++) {
+            for (int j = 0; j < this.getHeight() - 3; j++) {
+                if (this.data[i][j] != FourinrowChip.EMPTY.getMask() && 
+                        this.data[i][j] == this.data[i+1][j+1] &&
+                        this.data[i][j] == this.data[i+2][j+2] &&
+                        this.data[i][j] == this.data[i+3][j+3]) {
+                    if (this.data[i][j] == FourinrowChip.RED.getMask()) {
+                        return FourinrowChip.RED;
+                    }
+                    else if (this.data[i][j] == FourinrowChip.BLUE.getMask()) {
+                        return FourinrowChip.BLUE;
+                    }
+                }
+            }
+        }
+        
+        /* Comprobamos lineas verticales */
+        for (int i = 0; i < this.getWidth(); i++) {
+            for (int j = 0; j < this.getHeight() - 3; j++) {
+                if (this.data[i][j] != FourinrowChip.EMPTY.getMask() && 
+                        this.data[i][j] == this.data[i][j+1] &&
+                        this.data[i][j] == this.data[i][j+2] &&
+                        this.data[i][j] == this.data[i][j+3]) {
+                    if (this.data[i][j] == FourinrowChip.RED.getMask()) {
+                        return FourinrowChip.RED;
+                    }
+                    else if (this.data[i][j] == FourinrowChip.BLUE.getMask()) {
+                        return FourinrowChip.BLUE;
+                    }
+                }
+            }
+        }
+        
+        /* Si no hay fila ganadora, se retorna ficha vacía indicando que no hay ganador */
+        return FourinrowChip.EMPTY;
     }
 }
