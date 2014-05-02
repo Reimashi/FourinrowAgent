@@ -36,5 +36,13 @@ public class TestPaint {
         m.put(FourinrowChip.BLUE, 3);
         
         m.put(FourinrowChip.RED, 4);
+        
+        m.put(FourinrowChip.BLUE, 5);
+        m.put(FourinrowChip.BLUE, 5);
+        m.put(FourinrowChip.RED, 5);
+        m.put(FourinrowChip.BLUE, 6);
+        m.put(FourinrowChip.BLUE, 6);
+        m.put(FourinrowChip.BLUE, 6);
+        m.put(FourinrowChip.RED, 6);
     }
 }
