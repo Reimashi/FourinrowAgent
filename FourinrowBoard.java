@@ -25,6 +25,7 @@ public class FourinrowBoard extends Environment {
     
     private boolean turn;
     private boolean finished;
+    private FourinrowChip winner;
     
     public FourinrowBoard() {
         /* Crear un modelo */
@@ -38,6 +39,7 @@ public class FourinrowBoard extends Environment {
         
         this.turn = false;
         this.finished = false;
+        this.winner = FourinrowChip.EMPTY;
         
         this.updatePercepts();
     }
@@ -57,10 +59,10 @@ public class FourinrowBoard extends Environment {
 
                 switch (ag) {
                     case JugadorPrimario:
-                        model.put(FourinrowChip.BLUE, x);
+                        model.put(FourinrowChip.RED, x);
                         break;
                     case JugadorSecundario:
-                        model.put(FourinrowChip.RED, x);
+                        model.put(FourinrowChip.BLUE, x);
                         break;
                     default:
                         logger.log(Level.SEVERE, "No se reconoce el nombre del agente <" + ag + ">");
@@ -82,7 +84,11 @@ public class FourinrowBoard extends Environment {
         
         this.updatePercepts();
         
-        /* TODO: Comprobar si el juego ha finalizado */
+        this.winner = this.model.getWinner();
+        if (this.winner != FourinrowChip.EMPTY) {
+            this.finished = true;
+            System.out.println("Partida finalizada");
+        }
         
         informAgsEnvironmentChanged();
         
@@ -119,9 +125,18 @@ public class FourinrowBoard extends Environment {
         /* Notificamos si el juego ha acabado */
         if (this.finished) {
             addPercept(Literal.parseLiteral("finished(true)"));
+            if (this.winner == FourinrowChip.RED) {
+                addPercept(JugadorPrimario, Literal.parseLiteral("winner(true)"));
+                addPercept(JugadorSecundario, Literal.parseLiteral("winner(false)"));
+            }
+            else if (this.winner == FourinrowChip.BLUE) {
+                addPercept(JugadorPrimario, Literal.parseLiteral("winner(false)"));
+                addPercept(JugadorSecundario, Literal.parseLiteral("winner(true)"));
+            }
         }
         else {
             addPercept(Literal.parseLiteral("finished(false)"));
+            addPercept(Literal.parseLiteral("winner(false)"));
         }
     }
     
