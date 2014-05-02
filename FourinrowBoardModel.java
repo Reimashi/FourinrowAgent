@@ -39,8 +39,6 @@ public class FourinrowBoardModel extends GridWorldModel {
         else {
             logger.log(Level.SEVERE, "Se está intentando insertar una ficha en una columna completa <" + x + ">");
         }
-        
-        System.out.println(getWinner());  // QUITAR
     }
     
     public FourinrowChip getWinner() {
